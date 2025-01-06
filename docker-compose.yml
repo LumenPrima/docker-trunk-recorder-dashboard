@@ -39,20 +39,31 @@ services:
     networks:
       - trunk_network
 
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    restart: unless-stopped
+    ports:
+      - "1883:1883"
+    volumes:
+      - mosquitto_data:/mosquitto/data
+      - mosquitto_log:/mosquitto/log
+    networks:
+      - trunk_network
+
   ingest:
     build:
       context: .
       dockerfile: Dockerfile.ingest
     restart: unless-stopped
-    ports:
-      - "3001:3001"
     environment:
       - MONGODB_URI=mongodb://mongodb:27017/?replicaSet=rs0&directConnection=true
       - DB_NAME=trunk_recorder
       - COLLECTION_NAME=radio_events
-      - HTTP_MONGO_PORT=3001
+      - MQTT_BROKER=mqtt://mosquitto:1883
+      - MQTT_TOPIC_PREFIX=topic
     depends_on:
       - mongodb
+      - mosquitto
     networks:
       - trunk_network
 
@@ -101,4 +112,8 @@ networks:
 
 volumes:
   mongodb_data:
+    driver: local
+  mosquitto_data:
+    driver: local
+  mosquitto_log:
     driver: local

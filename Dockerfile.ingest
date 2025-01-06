@@ -9,9 +9,6 @@ COPY package*.json ./
 RUN npm install
 
 # Copy ingest service
-COPY http-mongo-service.js ./
+COPY mqtt-mongo-service.js ./
 
-# Expose port for the HTTP service
-EXPOSE 3001
-
-CMD ["node", "http-mongo-service.js"]
+CMD ["node", "mqtt-mongo-service.js"]

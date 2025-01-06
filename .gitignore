@@ -18,6 +18,8 @@ pids/
 
 # Docker volumes
 mongodb_data/
+mosquitto_data/
+mosquitto_log/
 
 # IDE
 .vscode/
@@ -26,3 +28,6 @@ mongodb_data/
 # OS
 .DS_Store
 Thumbs.db
+
+# External projects
+trunk-recorder-mqtt-status/
