@@ -95,9 +95,12 @@ class MqttService {
       
       // Subscribe to relevant topics
       const topics = [
-        `${MQTT_TOPIC_PREFIX}/call_start`,
-        `${MQTT_TOPIC_PREFIX}/call_end`,
-        `${MQTT_TOPIC_PREFIX}/calls_active`
+        '/call_start',
+        '/call_end',
+        '/calls_active',
+        '/recorder',
+        '/recorders',
+        '/rates'
       ];
       
       topics.forEach(topic => {
